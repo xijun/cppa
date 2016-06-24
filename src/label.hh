@@ -31,3 +31,4 @@ class Labels<char> {
     std::ostream& operator<<(const Labels<char>& label);
 };*/
 
+#include "label.hxx"
