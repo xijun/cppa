@@ -1,4 +1,5 @@
-# include "label.hh"
+#include "label.hh"
+#include <stdexcept>
 
 template <typename T>
 Labels<T>::Labels()
@@ -11,7 +12,7 @@ Labels<T>::Labels()
 }
 
 template <typename T>
-Labels<T>::Labels(T& value)
+Labels<T>::Labels(const T& value)
 {
   label_ = value;
 }
@@ -19,4 +20,28 @@ Labels<T>::Labels(T& value)
 template <typename T>
 Labels<T>::~Labels()
 {
+}
+
+template <typename T>
+T Labels<T>::operator+(const Labels<T>& label) const
+{
+	return this.label_ + label.label_;
+}
+
+template <typename T>
+bool Labels<T>::operator==(const Labels<T>& label) const
+{
+	return this.label_ == label.label_;
+}
+
+template <typename T>
+bool Labels<T>::operator<(const Labels<T>& label) const
+{
+	return this.label_ < label.label_;
+}
+
+template <>
+bool Labels<char>::operator<(const Labels<char>& label) const
+{
+	throw std::logic_error("cannot use operator + with a label char");
 }

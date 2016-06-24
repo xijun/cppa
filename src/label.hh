@@ -1,20 +1,24 @@
+#pragma once
 # include <string>
 
 template<typename T>
 class Labels {
   public :
     Labels();
-    Labels(T& value);
+    Labels(const T& value);
     ~Labels();
+		//T get_label() const;
+		//void set_label(const T& value);
   private :
     T label_;
-  T operator+(const Labels&) const;
-  bool operator==(const Labels&) const;
-  bool operator<(const Labels&) const;
-  std::ostream& operator<<(const Labels<char>& label);
+  public :
+		T operator+(const Labels<T>&) const;
+  	bool operator==(const Labels<T>&) const;
+  	bool operator<(const Labels<T>&) const;
+  	std::ostream& operator<<(const Labels<char>& label);
 };
 
-template<>
+/*template<>
 class Labels<char> {
   public :
     Labels();
@@ -25,6 +29,5 @@ class Labels<char> {
     bool operator==(const Labels<char>&);
     bool operator<(const Labels<char>&);
     std::ostream& operator<<(const Labels<char>& label);
-};
-
+};*/
 
