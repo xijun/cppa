@@ -1,9 +1,9 @@
 #include "polynomial.hh"
-#include <iostream>
 #include <cassert>
 
 int main()
 {
+	std::cout << "Hello World!" << std::endl;
 	Label<int> label(2);
 	Label<int> label2(3);
 	int toto = label + label2;
