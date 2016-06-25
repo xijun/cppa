@@ -23,10 +23,22 @@ T Weight<T>::operator+(const Weight<T>& weight) const
 	return this.weight_ + weight.weight_;
 }
 
+template <>
+bool Weight<bool>::operator+(const Weight<T>& weight) const
+{
+	return this.weight_ || weight.weight_;
+}
+
 template <typename T>
 T Weight<T>::operator*(const Weight<T>& weight) const
 {
 	return this.weight_ * weight.weight_;
+}
+
+template <>
+bool Weight<bool>::operator*(const Weight<T>& weight) const
+{
+	return this.weight_ && weight.weight_;
 }
 
 template <typename T>
