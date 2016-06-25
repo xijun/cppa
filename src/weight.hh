@@ -1,19 +1,18 @@
 #pragma once
+#include "label.hh"
 
-template<typename T>
-class Weight {
+template <typename T>
+class Weight : public Label<T> {
   public :
     Weight();
     Weight(const T& value);
     ~Weight();
-  private :
-    T weight_;
   public :
     T operator+(const Weight<T>&) const;
 		T operator*(const Weight<T>&) const;
     bool operator==(const Weight<T>&) const;
     bool operator<(const Weight<T>&) const;
-    std::ostream& operator<<(const Weight<T>&) const;
+    void operator<<(const Weight<T>&) const;
 };
 
 #include "weight.hxx"

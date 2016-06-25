@@ -1,5 +1,6 @@
 #pragma once
-# include <string>
+#include <string>
+#include <iostream>
 
 template<typename T>
 class Label {
@@ -7,26 +8,14 @@ class Label {
     Label();
     Label(const T& value);
     ~Label();
-  private :
+  protected :
     T label_;
   public :
-		T operator+(const Label<T>&) const;
-  	bool operator==(const Label<T>&) const;
-  	bool operator<(const Label<T>&) const;
-  	std::ostream& operator<<(const Label<char>& label);
+		virtual T operator+(const Label<T>&) const;
+  	virtual bool operator==(const Label<T>&) const;
+  	virtual bool operator<(const Label<T>&) const;
+		virtual void operator<<(const Label<T>& label) const;
 };
 
-/*template<>
-class Label<char> {
-  public :
-    Label();
-    Label(char& value);
-    ~Label();
-  private :
-    char c_;
-    bool operator==(const Label<char>&);
-    bool operator<(const Label<char>&);
-    std::ostream& operator<<(const Label<char>& label);
-};*/
 
 #include "label.hxx"

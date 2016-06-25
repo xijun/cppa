@@ -47,3 +47,9 @@ bool Label<T>::operator<(const Label<T>& label) const
 {
 	return this->label_ < label.label_;
 }
+
+template <typename T>
+void Label<T>::operator<<(const Label<T>& label) const
+{
+	std::cout << label.label_;
+}
