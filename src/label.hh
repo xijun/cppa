@@ -7,8 +7,6 @@ class Labels {
     Labels();
     Labels(const T& value);
     ~Labels();
-		//T get_label() const;
-		//void set_label(const T& value);
   private :
     T label_;
   public :
