@@ -3,7 +3,7 @@
 #include <type_traits>
 
 template <typename T>
-Labels<T>::Labels()
+Label<T>::Label()
 {
   bool is_int = std::is_same<T, int>::value;
   if (is_int)
@@ -13,37 +13,37 @@ Labels<T>::Labels()
 }
 
 template <typename T>
-Labels<T>::Labels(const T& value)
+Label<T>::Label(const T& value)
 : label_(value)
 {
 }
 
 template <typename T>
-Labels<T>::~Labels()
+Label<T>::~Label()
 {
 }
 
 template <>
-char Labels<char>::operator+(const Labels<char>& label) const
+char Label<char>::operator+(const Label<char>& label) const
 {
 	throw std::logic_error("cannot use operator + with a label char");
 }
 
 template <typename T>
-T Labels<T>::operator+(const Labels<T>& label) const
+T Label<T>::operator+(const Label<T>& label) const
 {
 	return this->label_ + label.label_;
 }
 
 
 template <typename T>
-bool Labels<T>::operator==(const Labels<T>& label) const
+bool Label<T>::operator==(const Label<T>& label) const
 {
 	return this->label_ == label.label_;
 }
 
 template <typename T>
-bool Labels<T>::operator<(const Labels<T>& label) const
+bool Label<T>::operator<(const Label<T>& label) const
 {
 	return this->label_ < label.label_;
 }

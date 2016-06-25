@@ -2,31 +2,31 @@
 # include <string>
 
 template<typename T>
-class Labels {
+class Label {
   public :
-    Labels();
-    Labels(const T& value);
-    ~Labels();
+    Label();
+    Label(const T& value);
+    ~Label();
   private :
     T label_;
   public :
-		T operator+(const Labels<T>&) const;
-  	bool operator==(const Labels<T>&) const;
-  	bool operator<(const Labels<T>&) const;
-  	std::ostream& operator<<(const Labels<char>& label);
+		T operator+(const Label<T>&) const;
+  	bool operator==(const Label<T>&) const;
+  	bool operator<(const Label<T>&) const;
+  	std::ostream& operator<<(const Label<char>& label);
 };
 
 /*template<>
-class Labels<char> {
+class Label<char> {
   public :
-    Labels();
-    Labels(char& value);
-    ~Labels();
+    Label();
+    Label(char& value);
+    ~Label();
   private :
     char c_;
-    bool operator==(const Labels<char>&);
-    bool operator<(const Labels<char>&);
-    std::ostream& operator<<(const Labels<char>& label);
+    bool operator==(const Label<char>&);
+    bool operator<(const Label<char>&);
+    std::ostream& operator<<(const Label<char>& label);
 };*/
 
 #include "label.hxx"
