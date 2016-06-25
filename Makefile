@@ -5,7 +5,7 @@ SRC:= $(addprefix src/, $(SRC))
 OBJ=$(SRC:.cc=.o)
 
 all: $(OBJ)
-		${CXX} ${CXXFLAGS} $^ -o $@
+		${CXX} ${CXXFLAGS} $^ -o out
 
 clean:
-		rm -rf $(OBJ)
+		rm -rf $(OBJ) out

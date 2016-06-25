@@ -1,5 +1,4 @@
-#include "label.hh"
-#include "weight.hh"
+#include "polynomial.hh"
 #include <iostream>
 #include <cassert>
 
