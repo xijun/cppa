@@ -1,8 +1,8 @@
 #include "polynomial.hh"
 
 
-
-bool Polynomial::add_monomial(const Label& label, const Weight& weight)
+template <typename L, typename W>
+bool Polynomial<L, W>::add_monomial(const Label<L>& label, const Weight<W>& weight)
 {
     return true;
 }

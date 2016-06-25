@@ -5,31 +5,37 @@
 #include "polynomial.hh"
 
 /* Monomial functions*/
-inline std::vector<std::pair<const Label, const Weight>>& Polynomial::get_monomials() const
+template <typename L, typename W>
+inline std::vector<std::pair<const Label<L>&, const Weight<W>&>>& Polynomial<L, W>::get_monomials() const
 {
     return monomials_;
 }
 
-inline bool Polynomial::label_is_used(const Label& label) const
+template <typename L, typename W>
+inline bool Polynomial<L, W>::label_is_used(const Label<L>& label) const
 {
     /* Search for *label* within the vector of pair */
-    std::vector::iterator it = std::find_if(monomials_.begin(), monomials_.end(),
-                         [](std::pair<Label, Weight>& monomial) {return monomial.first == label;});
+    std::vector<std::pair<const Label<L>&, const Weight<W>&>const >::iterator it;
+    it = std::find_if(monomials_.begin(), monomials_.end(),
+                         [](std::pair<Label<L>, Weight<W>>& monomial) {return monomial.first == label;});
     return it != monomials_.end();
 }
 
 /* Polynomial functions*/
-inline std::ostream& Polynomial::operator<<(Polynomial& polynomial) const
+template <typename L, typename W>
+inline std::ostream& Polynomial<L, W>::operator<<(Polynomial<L, W>& polynomial) const
 {
     return std::cout;
 }
 
-inline Polynomial& Polynomial::operator+(Polynomial& polynomial)
+template <typename L, typename W>
+inline Polynomial<L, W>& Polynomial<L, W>::operator+(Polynomial<L, W>& polynomial)
 {
     return *this;
 }
 
-inline Polynomial& Polynomial::operator*(Polynomial& polynomial)
+template <typename L, typename W>
+inline Polynomial<L, W>& Polynomial<L, W>::operator*(Polynomial<L, W>& polynomial)
 {
     return *this;
 }
