@@ -2,6 +2,7 @@
 #include <iostream>
 #include <boost/foreach.hpp>
 #include "boost/bind.hpp"
+#include <boost/bind.hpp>
 #include "polynomial.hh"
 
 template <typename L, typename W, template<class...> class Container, class... Args>
