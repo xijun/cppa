@@ -23,7 +23,16 @@ Label<T>::~Label()
 {
 }
 
+
+template <typename T>
+inline
+T Label<T>::operator+(const Label<T>& label) const
+{
+	return this->label_ + label.label_;
+}
+
 template <>
+inline
 char Label<char>::operator+(const Label<char>& label) const
 {
 	(void) label;
@@ -31,25 +40,21 @@ char Label<char>::operator+(const Label<char>& label) const
 }
 
 template <typename T>
-T Label<T>::operator+(const Label<T>& label) const
-{
-	return this->label_ + label.label_;
-}
-
-
-template <typename T>
+inline
 bool Label<T>::operator==(const Label<T>& label) const
 {
 	return this->label_ == label.label_;
 }
 
 template <typename T>
+inline
 bool Label<T>::operator<(const Label<T>& label) const
 {
 	return this->label_ < label.label_;
 }
 
 template <typename T>
+inline
 void Label<T>::operator<<(const Label<T>& label) const
 {
 	std::cout << label.label_;
