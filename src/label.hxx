@@ -9,7 +9,7 @@ Label<T>::Label()
   if (is_int)
     label_ = 0;
   else
-    label_ = "\e";
+    label_ = "\\e";
 }
 
 template <typename T>
@@ -26,6 +26,7 @@ Label<T>::~Label()
 template <>
 char Label<char>::operator+(const Label<char>& label) const
 {
+	(void) label;
 	throw std::logic_error("cannot use operator + with a label char");
 }
 
