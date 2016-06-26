@@ -12,7 +12,7 @@ Polynomial<L, W>::Polynomial()
 /* Monomial functions*/
 template <typename L, typename W>
 inline
-const std::vector<std::pair<const Label<L>&, const Weight<W>&>>& Polynomial<L, W>::get_monomials() const
+const std::vector<std::pair<const Label<L>, const Weight<W>>>& Polynomial<L, W>::get_monomials() const
 {
     return monomials_;
 }
@@ -21,7 +21,7 @@ template <typename L, typename W>
 inline bool Polynomial<L, W>::label_is_used(const Label<L>& label) const
 {
     /* Search for *label* within the vector of pair */
-    typename std::vector<std::pair<const Label<L>&, const Weight<W>&>const >::iterator it;
+    typename std::vector<std::pair<const Label<L>, const Weight<W>>const >::iterator it;
     it = std::find_if(monomials_.begin(), monomials_.end(),
                          [label](std::pair<Label<L>, Weight<W>>& monomial) {return monomial.first == label;});
     return it != monomials_.end();
@@ -44,7 +44,7 @@ std::ostream& operator<<(std::ostream& os, const Polynomial<L, W>& polynomial)
 				if (!first)
 					os << " + ";
 				first = false;
-				os << p.first << p.second;
+				os << '<' << p.second << '>' << p.first;
 			}
 		}
     return os;
@@ -65,7 +65,8 @@ inline Polynomial<L, W>& Polynomial<L, W>::operator*(Polynomial<L, W>& polynomia
 template <typename L, typename W>
 bool Polynomial<L, W>::add_monomial(const Label<L>& label, const Weight<W>& weight)
 {
-    monomials_.push_back(std::make_pair(label, weight));
+		std::pair<const Label<L>, const Weight<W>> p = std::make_pair(label, weight);
+    monomials_.push_back(p);
     return true;
 }
 
