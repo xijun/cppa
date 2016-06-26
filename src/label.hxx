@@ -23,6 +23,11 @@ Label<T>::~Label()
 {
 }
 
+template <typename T>
+T Label<T>::get_label() const
+{
+	return label_;
+}
 
 template <typename T>
 inline
@@ -55,7 +60,8 @@ bool Label<T>::operator<(const Label<T>& label) const
 
 template <typename T>
 inline
-void Label<T>::operator<<(const Label<T>& label) const
+std::ostream& operator<<(std::ostream& os, const Label<T>& label)
 {
-	std::cout << label.label_;
+	os << label.get_label();
+	return os;
 }

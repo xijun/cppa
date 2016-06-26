@@ -8,6 +8,6 @@ bool Polynomial<L, W>::add_monomial(const Label<L>& label, const Weight<W>& weig
         return false;
     if (weight == 0)
         return true;
-    monomials_.
+		monomials_.push_back(std::make_pair(label, weight));
     return true;
 }

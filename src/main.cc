@@ -22,4 +22,20 @@ int main()
 	Weight<bool> w4(true);
 	bool b = w3 * w4;
 	assert(b == false);
+
+//----------------------------------------------------------------------------------------
+
+	Label<std::string> l("x");
+	Label<std::string> l2("y");
+	Label<std::string> l3("z");
+
+	Weight<int> w5(2);
+	Weight<int> w6(3);
+	Weight<int> w7(4);
+
+	Polynomial<std::string, int> poly;
+	poly.add_monomial(l, w5);
+	poly.add_monomial(l2, w6);
+	poly.add_monomial(l3, w7);
+	std::cout << poly;
 }

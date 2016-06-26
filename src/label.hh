@@ -11,11 +11,13 @@ class Label {
   protected :
     T label_;
   public :
+		virtual T get_label() const;
 		virtual T operator+(const Label<T>&) const;
   	virtual bool operator==(const Label<T>&) const;
   	virtual bool operator<(const Label<T>&) const;
-		virtual void operator<<(const Label<T>& label) const;
 };
 
+template<typename T>
+std::ostream& operator<<(std::ostream&, const Label<T>& label);
 
 #include "label.hxx"
