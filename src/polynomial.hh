@@ -10,12 +10,12 @@ class Polynomial {
 public:
 
     /* Constructors + Destructors*/
-    Polynomial(const std::vector<std::pair<const Label<L>&, const Weight<W>&>>& monomials_) = delete;
+    Polynomial(const std::vector<std::pair<const Label<L>, const Weight<W>>>& monomials_) = delete;
 		Polynomial();
     ~Polynomial() {}
 
     /* Monomial functions*/
-    const std::vector<std::pair<const Label<L>&, const Weight<W>&>>& get_monomials() const;
+    const std::vector<std::pair<const Label<L>, const Weight<W>>>& get_monomials() const;
 
     bool label_is_used(const Label<L>& label) const;
 
@@ -29,7 +29,7 @@ public:
 
 private:
 
-    std::vector<std::pair<const Label<L>&, const Weight<W>&>> monomials_;
+    std::vector<std::pair<const Label<L>, const Weight<W>>> monomials_;
 };
 
 template<typename L, typename W>
