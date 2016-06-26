@@ -150,5 +150,3 @@ bool Polynomial<L, W, std::vector, std::pair<Label<L>, Weight<W>>>
   	monomials_.push_back(pair);
     return true;
 }
-
-
