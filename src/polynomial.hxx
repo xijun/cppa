@@ -1,5 +1,3 @@
-//#pragma once
-
 #include <algorithm>
 #include <iostream>
 #include <boost/foreach.hpp>
@@ -28,8 +26,8 @@ inline bool Polynomial<L, W>::label_is_used(const Label<L>& label) const
 }
 
 /* Polynomial functions*/
-template <typename L, typename W>
-std::ostream& operator<<(std::ostream& os, const Polynomial<L, W>& polynomial)
+/*template <typename L, typename W>
+std::ostream& operator<<(std::ostream& os, const base_polynomial<L, W>& polynomial)
 {
 		auto& mono = polynomial.get_monomials();
 		if (mono.size() == 0)
@@ -48,6 +46,34 @@ std::ostream& operator<<(std::ostream& os, const Polynomial<L, W>& polynomial)
 			}
 		}
     return os;
+}*/
+
+template <typename L, typename W>
+std::ostream& operator<<(std::ostream& os, const base_polynomial<L, W>& polynomial)
+{
+	polynomial.print(os);
+	return os;
+}
+
+template <typename L, typename W>
+void Polynomial<L, W>::print(std::ostream& os) const
+{
+    auto& mono = this->get_monomials();
+    if (mono.size() == 0)
+    {
+      os << "\\z";
+    }
+    else
+    {
+      bool first = true;
+      BOOST_FOREACH(auto& p, mono)
+      {
+        if (!first)
+          os << " + ";
+        first = false;
+        os << '<' << p.second << '>' << p.first;
+      }
+    }
 }
 
 template <typename L, typename W>
@@ -69,4 +95,5 @@ bool Polynomial<L, W>::add_monomial(const Label<L>& label, const Weight<W>& weig
     monomials_.push_back(p);
     return true;
 }
+
 

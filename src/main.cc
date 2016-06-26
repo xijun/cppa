@@ -1,4 +1,5 @@
 #include "polynomial.hh"
+#include "abs_polynomial.hh"
 #include <cassert>
 
 int main()
@@ -33,9 +34,9 @@ int main()
 	Weight<int> w6(3);
 	Weight<int> w7(4);
 
-	Polynomial<std::string, int> poly;
-	poly.add_monomial(l, w5);
-	poly.add_monomial(l2, w6);
-	poly.add_monomial(l3, w7);
-	std::cout << poly;
+	base_polynomial<std::string, int>* poly = new Polynomial<std::string, int>();
+	poly->add_monomial(l, w5);
+	poly->add_monomial(l2, w6);
+	poly->add_monomial(l3, w7);
+	std::cout << *poly;
 }
