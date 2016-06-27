@@ -23,8 +23,11 @@ public:
     bool add_monomial(const Label<L>& label, const Weight<W>& weight) override;
 
     /* Polynomial functions*/
-    Polynomial& operator+(Polynomial& polynomial);
-    Polynomial& operator*(Polynomial& polynomial);
+    Polynomial<L, W, Container, Args...>&
+		operator+(Polynomial<L, W, Container, Args...>& polynomial);
+    
+		Polynomial<L, W, Container, Args...>&
+		operator*(Polynomial<L, W, Container, Args...>& polynomial);
 
 		void print(std::ostream& os) const override;
 
@@ -48,8 +51,11 @@ public :
 
 		bool add_monomial(const Label<L>& label, const Weight<W>& weight) override;
 
-		Polynomial& operator+(Polynomial& polynomial);
-		Polynomial& operator*(Polynomial& polynomial);
+		Polynomial<L, W, std::vector, std::pair<Label<L>, Weight<W>>>&
+		operator+(Polynomial<L, W, std::vector, std::pair<Label<L>, Weight<W>>>& polynomial);
+
+		Polynomial<L, W, std::vector, std::pair<Label<L>, Weight<W>>>&
+		operator*(Polynomial<L, W, std::vector, std::pair<Label<L>, Weight<W>>>& polynomial);
 
 		void print(std::ostream& os) const override;
 
