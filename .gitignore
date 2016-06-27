@@ -31,3 +31,13 @@ out
 
 # IDE
 .idea/
+
+# Other
+configure
+
+# CMake generated files
+Makefile
+makefile
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
