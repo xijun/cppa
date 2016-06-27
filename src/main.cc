@@ -1,4 +1,5 @@
 #include "polynomial.hh"
+#include <boost/container/flat_map.hpp>
 #include "abs_polynomial.hh"
 #include <cassert>
 
@@ -34,7 +35,8 @@ int main()
 	Weight<int> w6(3);
 	Weight<int> w7(4);
 
-	base_polynomial<std::string, int>* poly = new Polynomial<std::string, int>();
+	base_polynomial<std::string, int, boost::container::flat_map, Label<std::string>, Weight<int>>* poly
+	= new Polynomial<std::string, int, boost::container::flat_map, Label<std::string>, Weight<int>>();
 	poly->add_monomial(l, w5);
 	poly->add_monomial(l2, w6);
 	poly->add_monomial(l3, w7);

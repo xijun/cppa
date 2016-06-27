@@ -5,11 +5,11 @@
 template <typename T>
 Label<T>::Label()
 {
-  bool is_int = std::is_same<T, int>::value;
-  if (is_int)
-    label_ = 0;
-  else
-    label_ = "\\e";
+  //bool is_int = std::is_same<T, int>::value;
+  //if (is_int)
+  //  label_ = 0;
+  //else
+  //  label_ = "\\e";
 }
 
 template <typename T>
