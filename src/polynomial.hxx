@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <iostream>
 #include <boost/foreach.hpp>
+#include "boost/bind.hpp"
 #include "polynomial.hh"
 
 template <typename L, typename W, template<class...> class Container, class... Args>
@@ -36,10 +37,26 @@ template <typename L, typename W, template<class...> class Container, class... A
 inline bool Polynomial<L, W, Container, Args...>::label_is_used(const Label<L>& label) const
 {
     /* Search for *label* within the vector of pair */
-    typename std::vector<std::pair<const Label<L>, const Weight<W>>const >::iterator it;
-    it = std::find_if(monomials_.begin(), monomials_.end(),
+    typename std::vector<std::pair<const Label<L>&, const Weight<W>&>const >::iterator it;
+    /*it = std::find_if(monomials_.begin(), monomials_.end(),
+>>>>>>> [CMAKE] Setting it up
                          [label](std::pair<Label<L>, Weight<W>>& monomial) {return monomial.first == label;});
-    return it != monomials_.end();
+    return it != monomials_.end();*/
+
+    /*it = monomials_.begin();
+    while (it != monomials_.end())
+    {
+        if (it->first == label)
+            return true;
+        if (!(it->first < label))
+            return false;
+    }
+    return false;*/
+
+    it = std::lower_bound(monomials_.begin(), monomials_.end(), label,
+        boost::bind(&std::pair<const Label<L>&, const Weight<W>& const>::first, _1)
+        < boost::bind(&std::pair<const Label<L>&, const Weight<W>& const>::first, _2));
+    return (it != monomials_.end() && it->)
 }
 
 /* Polynomial functions*/
@@ -124,9 +141,13 @@ template <typename L, typename W>
 bool Polynomial<L, W, std::vector, std::pair<Label<L>, Weight<W>>>
 ::add_monomial(const Label<L>& label, const Weight<W>& weight)
 {
-  auto pair = std::make_pair(label, weight);
-  monomials_.push_back(pair);
-  return true;
+    if (label_is_used(label))
+        return false;
+    if (weight.get_label() == 0)
+        return true;
+		auto pair = std::make_pair(label, weight);
+  	monomials_.push_back(pair);
+    return true;
 }
 
 
