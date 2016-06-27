@@ -13,7 +13,7 @@ find_package(Boost 1.40 COMPONENTS program_options system REQUIRED)
 include_directories(${Boost_INCLUDE_DIR})
 
 add_custom_target(check)
-add_custom_command(TARGET check POST_BUILD  COMMAND $(CMAKE))
+add_custom_command(TARGET check POST_BUILD COMMAND $(CMAKE))
 
 add_executable(cppa ${SOURCE_FILES})
 
