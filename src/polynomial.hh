@@ -5,7 +5,8 @@
 #include "weight.hh"
 
 template <typename L, typename W, template<class...> class Container, class... Args>
-class Polynomial : public base_polynomial<L, W, Container, Args...> {
+class Polynomial : public base_polynomial<L, W, Container, Args...>
+{
 
 public:
 
@@ -30,6 +31,30 @@ public:
 
 private:
     Container<Args...> monomials_;
+};
+
+template <typename L, typename W>
+class Polynomial<L, W, std::vector, std::pair<Label<L>, Weight<W>>> :
+public base_polynomial<L, W, std::vector, std::pair<Label<L>, Weight<W>>>
+{
+public :
+		Polynomial(const std::vector<std::pair<Label<L>, Weight<W>>>& monomials_) = delete;
+		Polynomial();
+		~Polynomial() {}
+
+		const std::vector<std::pair<Label<L>, Weight<W>>>& get_monomials() const override;
+
+		bool label_is_used(const Label<L>& label) const;
+
+		bool add_monomial(const Label<L>& label, const Weight<W>& weight) override;
+
+		Polynomial& operator+(Polynomial& polynomial);
+		Polynomial& operator*(Polynomial& polynomial);
+
+		void print(std::ostream& os) const override;
+
+private:
+		std::vector<std::pair<Label<L>, Weight<W>>> monomials_;
 };
 
 template<typename L, typename W, template<class...> class Container, class... Args>
