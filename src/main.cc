@@ -1,6 +1,6 @@
 #include "polynomial.hh"
-#include <boost/container/flat_map.hpp>
 #include "abs_polynomial.hh"
+#include <boost/container/flat_map.hpp>
 #include <cassert>
 
 int main()
@@ -40,5 +40,5 @@ int main()
 	poly->add_monomial(l, w5);
 	poly->add_monomial(l2, w6);
 	poly->add_monomial(l3, w7);
-	std::cout << *poly;
+	std::cout << *poly << std::endl;
 }

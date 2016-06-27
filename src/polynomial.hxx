@@ -38,26 +38,12 @@ template <typename L, typename W, template<class...> class Container, class... A
 inline bool Polynomial<L, W, Container, Args...>::label_is_used(const Label<L>& label) const
 {
     /* Search for *label* within the vector of pair */
-    typename std::vector<std::pair<const Label<L>&, const Weight<W>&>const >::iterator it;
-    /*it = std::find_if(monomials_.begin(), monomials_.end(),
->>>>>>> [CMAKE] Setting it up
-                         [label](std::pair<Label<L>, Weight<W>>& monomial) {return monomial.first == label;});
-    return it != monomials_.end();*/
-
-    /*it = monomials_.begin();
-    while (it != monomials_.end())
-    {
-        if (it->first == label)
-            return true;
-        if (!(it->first < label))
-            return false;
-    }
-    return false;*/
+    typename std::vector<std::pair<const Label<L>&, const Weight<W>&>>::iterator it;
 
     it = std::lower_bound(monomials_.begin(), monomials_.end(), label,
-        boost::bind(&std::pair<const Label<L>&, const Weight<W>& const>::first, _1)
-        < boost::bind(&std::pair<const Label<L>&, const Weight<W>& const>::first, _2));
-    return (it != monomials_.end() && it->)
+        boost::bind(&std::pair<const Label<L>&, const Weight<W>&>::first, _1)
+        < boost::bind(&std::pair<const Label<L>&, const Weight<W>&>::first, _2));
+    return (it != monomials_.end() && it->second == label);
 }
 
 /* Polynomial functions*/
