@@ -151,6 +151,7 @@ Polynomial<L, W, std::vector, std::pair<Label<L>, Weight<W>>>
 		else
 			add_monomial(p.first, p.second);
 	}
+	std::sort(monomials_.begin(), monomials_.end(), vector_sort<std::pair, Label<L>, Weight<W>>());	
 	return *this;
 }
 
