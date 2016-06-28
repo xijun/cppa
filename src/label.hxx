@@ -31,14 +31,15 @@ T Label<T>::get_label() const
 
 template <typename T>
 inline
-T Label<T>::operator+(const Label<T>& label) const
+Label<T>& Label<T>::operator+(const Label<T>& label)
 {
-	return this->label_ + label.label_;
+	this->label_ += label.label_;
+	return *this;
 }
 
 template <>
 inline
-char Label<char>::operator+(const Label<char>& label) const
+Label<char>& Label<char>::operator+(const Label<char>& label)
 {
 	(void) label;
 	throw std::logic_error("cannot use operator + with a label char");
