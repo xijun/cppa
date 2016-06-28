@@ -19,16 +19,16 @@ Polynomial<L, W, std::vector, std::pair<Label<L>, Weight<W>>>
 /* Monomial functions*/
 template <typename L, typename W, template<class...> class Container, class... Args>
 inline
-const Container<Args...>& Polynomial<L, W, Container, Args...>::get_monomials() const
+Container<Args...>& Polynomial<L, W, Container, Args...>::get_monomials() 
 {
-    return monomials_;
+	return monomials_;
 }
 
 template <typename L, typename W>
 inline
-const std::vector<std::pair<Label<L>, Weight<W>>>&
+std::vector<std::pair<Label<L>, Weight<W>>>&
 Polynomial<L, W, std::vector, std::pair<Label<L>, Weight<W>>>
-::get_monomials() const
+::get_monomials()
 {
 	return monomials_;
 }
@@ -38,12 +38,12 @@ template <typename L, typename W, template<class...> class Container, class... A
 inline bool Polynomial<L, W, Container, Args...>::label_is_used(const Label<L>& label) const
 {
     /* Search for *label* within the vector of pair */
-    typename std::vector<std::pair<const Label<L>&, const Weight<W>&>const >::iterator it;
+    //typename std::vector<std::pair<const Label<L>&, const Weight<W>&>const >::iterator it;
     /*it = std::find_if(monomials_.begin(), monomials_.end(),
                          [label](std::pair<Label<L>, Weight<W>>& monomial) {return monomial.first == label;});
     return it != monomials_.end();*/
 
-    it = monomials_.begin();
+    auto it = monomials_.begin();
     while (it != monomials_.end())
     {
         if (it->first == label)
@@ -60,6 +60,21 @@ inline bool Polynomial<L, W, Container, Args...>::label_is_used(const Label<L>& 
     return (it != monomials_.end() && it->)*/
 }
 
+template <typename L, typename W>
+bool Polynomial<L, W, std::vector, std::pair<Label<L>, Weight<W>>>
+::label_is_used(const Label<L>& label) const
+{
+	auto it = monomials_.begin();
+	while (it != monomials_.end())
+    {
+        if (it->first == label)
+            return true;
+        if (!(it->first < label))
+            return false;
+        it++;
+    }
+    return false;
+}
 /* Polynomial functions*/
 
 template <typename L, typename W, template<class...> class Container, class... Args>
@@ -72,7 +87,7 @@ std::ostream& operator<<(std::ostream& os, const base_polynomial<L, W, Container
 template <typename L, typename W, template<class...> class Container, class... Args>
 void Polynomial<L, W, Container, Args...>::print(std::ostream& os) const
 {
-    auto& mono = this->get_monomials();
+    auto& mono = monomials_;
     if (mono.size() == 0)
     {
       os << "\\z";
@@ -94,7 +109,7 @@ template <typename L, typename W>
 void Polynomial<L, W, std::vector, std::pair<Label<L>, Weight<W>>>
 ::print(std::ostream& os) const
 {
-	  auto& mono = this->get_monomials();
+	  auto& mono = monomials_;
     if (mono.size() == 0)
  																	   {
       os << "\\z";
@@ -118,14 +133,15 @@ Polynomial<L, W, Container, Args...>&
 Polynomial<L, W, Container, Args...>
 ::operator+(Polynomial<L, W, Container, Args...>& polynomial)
 {
-		auto& arg1 = this->get_monomials();
-		auto& arg2 = polynomial.get_monomials();
-		BOOST_FOREACH(auto& p, arg2)
+		Container<Args ...>& arg1 = monomials_;
+		Container<Args ...>& arg2 = polynomial.get_monomials();
+		BOOST_FOREACH(auto p, arg2)
 		{
 			if (label_is_used(p.first))
 			{
-				auto result = std::find(arg1.begin(), arg1.end(), p);
-				*result.second = *result.second + p.second;
+				typename Container<Args ...>::iterator
+				result = std::find(arg1.begin(), arg1.end(), p);
+				result->second = result->second + p.second;
 			}
 			else
 				add_monomial(p.first, p.second);
@@ -138,14 +154,14 @@ Polynomial<L, W, std::vector, std::pair<Label<L>, Weight<W>>>&
 Polynomial<L, W, std::vector, std::pair<Label<L>, Weight<W>>>
 ::operator+(Polynomial<L, W, std::vector, std::pair<Label<L>, Weight<W>>>& polynomial)
 {
-	auto& arg1 = this->get_monomials();
+	auto& arg1 = monomials_;
 	auto& arg2 = polynomial.get_monomials();
-	BOOST_FOREACH(auto& p, arg2)
+	BOOST_FOREACH(auto p, arg2)
 	{
 		if (label_is_used(p.first))
 		{
 			auto result = std::find(arg1.begin(), arg1.end(), p);
-			*result.second = *result.second + p.second;
+			result->second = result->second + p.second;
 		}
 		else
 			add_monomial(p.first, p.second);
@@ -176,8 +192,9 @@ bool Polynomial<L, W, Container, Args...>
 ::add_monomial(const Label<L>& label, const Weight<W>& weight)
 {
 	auto pair = std::make_pair(label, weight);
-  auto p = monomials_.insert(pair);
-  return p.second;
+  //auto p = monomials_.insert(pair);
+  //return p.second;
+	return true;
 }
 
 template <typename L, typename W>
