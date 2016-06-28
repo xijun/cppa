@@ -2,17 +2,7 @@ cmake_minimum_required(VERSION 3.2)
 project(cppa)
 
 set(CMAKE_CXX_FLAGS "-Wall -Wextra -Werror -pedantic -std=c++14 -ldl -g3")
-set(SOURCE_FILES
-       # src/abs_polynomial.hh
-       # src/comparator.hh
-       # src/comparator.hxx
-       # src/label.hh
-       # src/label.hxx
-       # src/weight.hh
-       # src/weight.hxx
-       # src/polynomial.hh
-       # src/polynomial.hxx
-        src/main.cc)
+set(SOURCE_FILES src/main.cc)
 
 find_package(Boost 1.40 COMPONENTS program_options system REQUIRED)
 

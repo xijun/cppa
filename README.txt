@@ -11,4 +11,8 @@ Polynomial : implementation choice :
 
 Bench :
 	- we compared both implementation and we can see that flat_map is better than vector
-	which is not a surprise
+	which is not a surprise.
+
+Overall, we feel like we could have used an additional day to do a really good job. But even though our
+bench is a bit light, we think we did a fairly good job and tried to use c++ standard and boost tools our best.
+For example we wanted to use std::lower_bound using boost::bind, and eventually used a simple find.

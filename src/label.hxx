@@ -38,15 +38,6 @@ const Label<T> Label<T>::operator+(const Label<T>& label)
 	const Label<T> output(get_label() + label.get_label());
 	return output;
 }
-/*
-template <>
-inline
-const Label<char> Label<char>::operator+(const Label<char>& label)
-{
-	(void) label;
-    throw std::logic_error("cannot use operator + with a label char");
-}
-*/
 template <typename T>
 inline
 bool Label<T>::operator==(const Label<T>& label) const
