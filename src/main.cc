@@ -1,7 +1,7 @@
 #include "polynomial.hh"
 #include "abs_polynomial.hh"
 #include <boost/container/flat_map.hpp>
-
+#include "comparator.hh"
 
 int main()
 {
@@ -57,6 +57,7 @@ int main()
 	Label<std::string> l("x");
 	Label<std::string> l2("y");
 	Label<std::string> l3("z");
+	Label<std::string> l4("xy");
 
 	Weight<int> w5(2);
 	Weight<int> w6(3);
@@ -77,12 +78,19 @@ int main()
 	std::cout << *poly << std::endl;
 
 	auto p2 =
-	new Polynomial<std::string, int, boost::container::flat_map, Label<std::string>, Weight<int>>();
+	new Polynomial<std::string, int,
+								boost::container::flat_map,
+								Label<std::string>, Weight<int>,
+								myless<Label<std::string>>>();
 	p2->add_monomial(l, w5);
   p2->add_monomial(l2, w6);
   p2->add_monomial(l3, w7);
-
-	auto p3 = new Polynomial<std::string, int, boost::container::flat_map, Label<std::string>, Weight<int>>();
+	p2->add_monomial(l4, w7);
+	auto p3 = new Polynomial<std::string, int,
+													boost::container::flat_map,
+													Label<std::string>,
+													Weight<int>,
+													myless<Label<std::string>>>();
 	p3->add_monomial(l, w5);
   p3->add_monomial(l2, w6);
   p3->add_monomial(l3, w7);
