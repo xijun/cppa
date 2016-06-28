@@ -11,8 +11,8 @@ class Label {
   protected :
     T label_;
   public :
-		virtual T get_label() const;
-		Label<T>& operator+(const Label<T>&);
+	virtual T get_label() const;
+	const Label<T> operator+(const Label<T>&);
   	virtual bool operator==(const Label<T>&) const;
   	virtual bool operator<(const Label<T>&) const;
 };

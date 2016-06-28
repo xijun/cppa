@@ -31,20 +31,22 @@ T Label<T>::get_label() const
 
 template <typename T>
 inline
-Label<T>& Label<T>::operator+(const Label<T>& label)
+const Label<T> Label<T>::operator+(const Label<T>& label)
 {
-	this->label_ += label.label_;
-	return *this;
+    if (std::is_same<T, char>::value)
+        throw std::logic_error("cannot use operator + with a label char");
+	const Label<T> output(get_label() + label.get_label());
+	return output;
 }
-
+/*
 template <>
 inline
-Label<char>& Label<char>::operator+(const Label<char>& label)
+const Label<char> Label<char>::operator+(const Label<char>& label)
 {
 	(void) label;
-	throw std::logic_error("cannot use operator + with a label char");
+    throw std::logic_error("cannot use operator + with a label char");
 }
-
+*/
 template <typename T>
 inline
 bool Label<T>::operator==(const Label<T>& label) const

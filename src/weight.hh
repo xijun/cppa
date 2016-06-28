@@ -8,8 +8,9 @@ class Weight : public Label<T> {
     Weight(const T& value);
     ~Weight();
   public :
-    Weight<T>& operator+(const Weight<T>&);
-		Weight<T>& operator*(const Weight<T>&);
+	virtual T get_weight() const;
+    const Weight<T> operator+(const Weight<T>&);
+	const Weight<T> operator*(const Weight<T>&);
     bool operator==(const Weight<T>&) const;
     bool operator<(const Weight<T>&) const;
     void operator<<(const Weight<T>&) const;
