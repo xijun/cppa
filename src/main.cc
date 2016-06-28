@@ -1,16 +1,18 @@
-#include "polynomial.hh"
-#include "abs_polynomial.hh"
 #include <boost/container/flat_map.hpp>
-#include "comparator.hh"
+#include <chrono>
+#include "polynomial.hh"
 
 int main()
 {
-	/* ******************************************** Label and Weight tests */
+
+    using clock = std::chrono::steady_clock;
+
+	/* ******************************************** Label and Weight tests ******************************************/
 
 	std::cout << std::boolalpha << "\033[33m" << "\n\t****** Label tests ******\n" << "\033[0m" << std::endl;
 
 	/* int labels tests */
-	std::cout << "\n\033[4m" << "int labels:\n\n" << "\033[0m";
+	std::cout << "\n\033[4m" << "Int labels:\n\n" << "\033[0m";
 	Label<int> label(2);
 	/* test << */
 	std::cout << "\tprint test, label = " << label << std::endl;
@@ -39,7 +41,7 @@ int main()
 
 
 	/* string labels tests */
-	std::cout << "\n\033[4m" <<"string labels:\n\n" << "\033[0m";
+	std::cout << "\n\033[4m" <<"String labels:\n\n" << "\033[0m";
 	Label<std::string> label3("xx");
 	/* test << */
 	std::cout << "\tprint test, label = \'" << label3 << "\'" << std::endl;
@@ -72,7 +74,7 @@ int main()
 	std::cout << "\033[33m" << "\n\t****** Weight tests ******\n" << "\033[0m" << std::endl;
 
 	/* int weights tests */
-	std::cout << "\n\033[4m" <<"int weights:\n\n" << "\033[0m";
+	std::cout << "\n\033[4m" <<"Int weights:\n\n" << "\033[0m";
 	Weight<int> weight(15);
     /* test << */
 	std::cout << "\tprint test, weight = " << weight << std::endl;
@@ -104,7 +106,7 @@ int main()
 
 
 	/* bool weights tests */
-	std::cout << "\n\033[4m" <<"bool weights:\n\n" << "\033[0m";
+	std::cout << "\n\033[4m" <<"Bool weights:\n\n" << "\033[0m";
 	Weight<bool> weight3(false);
     /* test << */
 	std::cout << "\tprint test, weight = " << weight3 << std::endl;
@@ -137,11 +139,16 @@ int main()
     << (weight5 * weight4 == weight5.get_label() * weight4.get_label() ? "\033[32m [OK]" : "\033[31m [KO]")
     << "\033[0m" << std::endl;
 
-/*
- *
- *
->>>>>>> [BENCH][LABEL] label::operator< done
-//----------------------------------------------------------------------------------------
+
+
+    /* ******************************************** BENCHMARK ******************************************/
+
+    std::chrono::duration<double, std::nano> d;
+
+    std::cout << std::boolalpha << "\033[33m" << "\n\t****** THE REAL STUFF ******\n" << "\033[0m" << std::endl;
+
+    /* Ordered vector */
+    std::cout << "\n\033[4m" <<"Ordered vector:\n\n" << "\033[0m";
 
 	Label<std::string> l("x");
 	Label<std::string> l2("y");
@@ -152,42 +159,72 @@ int main()
 	Weight<int> w6(3);
 	Weight<int> w7(4);
 	Weight<std::string> w8("toto");
-	auto poly
-	= new Polynomial<std::string, int, std::vector, std::pair<Label<std::string>, Weight<int>>>();
+	auto poly = new Polynomial<std::string, int, std::vector, std::pair<Label<std::string>, Weight<int>>>();
 	poly->add_monomial(l, w5);
 	poly->add_monomial(l2, w6);
 	poly->add_monomial(l3, w7);
-	std::cout << *poly << std::endl;
+	std::cout << "\tp1 = " << *poly << std::endl;
 
 	auto p = new Polynomial<std::string, int, std::vector, std::pair<Label<std::string>, Weight<int>>>();
 	p->add_monomial(l, w5);
 	p->add_monomial(l2, w6);
 	p->add_monomial(l3, w7);
-	*poly = *poly + *p;
-	std::cout << *poly << std::endl;
+    std::cout << "\tp2 = " << *p << std::endl;
 
+    clock::time_point p1_addition_start = clock::now();
+    *poly = *poly + *p;
+    clock::time_point p1_addition_end = clock::now();
+	std::cout << "\tp1 += p2 = " << *poly << std::endl;
+
+    clock::time_point p1_multi_start = clock::now();
 	*poly = *poly * *p;
-	std::cout << *poly << std::endl;
+    clock::time_point p1_multi_end = clock::now();
+	std::cout << "\tp1 *= p2 = " << *poly << std::endl;
 
-	auto p2 =
-	new Polynomial<std::string, int,
-								boost::container::flat_map,
-								Label<std::string>, Weight<int>,
+
+    /* flat_map */
+    std::cout << "\n\033[4m" <<"Flat map:\n\n" << "\033[0m";
+
+    auto p2 = new Polynomial<std::string, int, boost::container::flat_map, Label<std::string>, Weight<int>,
 								myless<Label<std::string>>>();
 	p2->add_monomial(l, w5);
-  p2->add_monomial(l2, w6);
-  p2->add_monomial(l3, w7);
+    p2->add_monomial(l2, w6);
+    p2->add_monomial(l3, w7);
+    std::cout << "\tp3 = " << *p2 << std::endl;
 	auto p3 = new Polynomial<std::string, int,
 													boost::container::flat_map,
 													Label<std::string>,
 													Weight<int>,
 													myless<Label<std::string>>>();
 	p3->add_monomial(l, w5);
-  p3->add_monomial(l2, w6);
-  p3->add_monomial(l3, w7);
-	*p2 = *p2 + *p3;
-	std::cout << *p2 << std::endl;
+    p3->add_monomial(l2, w6);
+    p3->add_monomial(l3, w7);
+    std::cout << "\tp4 = " << *p3 << std::endl;
 
+    clock::time_point p2_addition_start = clock::now();
+	*p2 = *p2 + *p3;
+    clock::time_point p2_addition_end = clock::now();
+	std::cout << "\tp3 += p4 = " << *p2 << std::endl;
+
+    clock::time_point p2_multi_start = clock::now();
 	*p2 = *p2 * *p3;
-	std::cout << *p2 << std::endl;*/
+    clock::time_point p2_multi_end = clock::now();
+    std::cout << "\tp3 *= p4 = " << *p2 << std::endl;
+
+
+    d = p1_addition_end - p1_addition_start;
+    double p1_addition = d.count();
+    d = p1_multi_end - p1_multi_start;
+    double p1_multi = d.count();
+    d = p2_addition_end - p2_addition_start;
+    double p2_addition = d.count();
+    d = p2_multi_end - p2_multi_start;
+    double p2_multi = d.count();
+    std::cout << "\n\033[4m" <<"Addition:" << "\033[0m" << " Ordered vector:"
+                << p1_addition << " ns" << std::endl;
+    std::cout << "\t\tFlat_map:" << p2_addition << " ns" << std::endl;
+    std::cout << "\n\033[4m" <<"Multi:" << "\033[0m" << " Ordered vector:"
+    << p1_multi << " ns" << std::endl;
+    std::cout << "\t\tFlat_map:" << p2_multi << " ns" << std::endl;
+
 }

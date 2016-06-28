@@ -22,7 +22,7 @@ public:
     /* Monomial functions*/
     Container<Args...>& get_monomials() override;
 
-    bool label_is_used(const Label<L>& label) const;
+    bool label_is_used(const Label<L> label) const;
 
     bool add_monomial(const Label<L>& label, const Weight<W>& weight) override;
 
@@ -58,7 +58,7 @@ public :
 
 		std::vector<std::pair<Label<L>, Weight<W>>>& get_monomials() override;
 
-		bool label_is_used(const Label<L>& label) const;
+		bool label_is_used(const Label<L> label) const;
 
 		bool add_monomial(const Label<L>& label, const Weight<W>& weight) override;
 

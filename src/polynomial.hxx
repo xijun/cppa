@@ -36,26 +36,23 @@ Polynomial<L, W, std::vector, std::pair<Label<L>, Weight<W>>>
 
 
 template <typename L, typename W, template<class...> class Container, class... Args>
-inline bool Polynomial<L, W, Container, Args...>::label_is_used(const Label<L>& label) const
+inline bool Polynomial<L, W, Container, Args...>::label_is_used(const Label<L> label) const
 {
-		auto it = monomials_.find(label);
-		return it != monomials_.end();
+    auto it = monomials_.find(label);
+	return it != monomials_.end();
 }
 
 template <typename L, typename W>
 bool Polynomial<L, W, std::vector, std::pair<Label<L>, Weight<W>>>
-::label_is_used(const Label<L>& label) const
+::label_is_used(const Label<L> label) const
 {
-	//auto it = std::find_if(monomials_.begin(), monomials_.end(),
-  //                       [label](std::pair<Label<L>, Weight<W>>& monomial) {return monomial.first == label;});
-	//return it != monomials_.end();
-	  auto it = monomials_.begin();
+    auto it = monomials_.begin();
     while (it != monomials_.end())
     {
 	    if (it->first == label)
-				return true;
-			if (!(it->first < label))
-        return false;
+			return true;
+		if (!(it->first < label))
+            return false;
       it++;
     }
     return false;
