@@ -27,6 +27,16 @@ int main()
 	std::cout << "\t" << label2 << " < " << label << " = " << (label2 < label)
 	<< ((label2.get_label() < label.get_label()) == (label2 < label) ? "\033[32m [OK]" : "\033[31m [KO]")
 	<< "\033[0m" << std::endl;
+    /* test == */
+    Label<int> label1(2);
+    std::cout << "\t" << label << " == " << label1 << " ? " << (label == label1)
+    << ((label.get_label() == label1.get_label()) == (label == label1) ? "\033[32m [OK]" : "\033[31m [KO]")
+    << "\033[0m" << std::endl;
+    std::cout << "\t" << label << " == " << label2 << " ? " << (label == label2)
+    << ((label.get_label() == label2.get_label()) == (label == label2) ? "\033[32m [OK]" : "\033[31m [KO]")
+    << "\033[0m" << std::endl;
+
+
 
 	/* string labels tests */
 	std::cout << "\n\033[4m" <<"string labels:\n\n" << "\033[0m";
@@ -48,6 +58,15 @@ int main()
 	std::cout << "\t" << label4 << " < " << label3 << " = " << (label4 < label3) << ((label4_size < label3_size ||
 			(label4_size == label3_size && label4.get_label() < label3.get_label())) == (label4 < label3)?
 		"\033[32m [OK]" : "\033[31m [KO]") << "\033[0m" << std::endl;
+    /* test == */
+    Label<std::string> label5("xx");
+    std::cout << "\t" << label3 << " == " << label4 << " ? " << (label3 == label4)
+    << ((label3.get_label() == label4.get_label()) == (label3 == label4) ? "\033[32m [OK]" : "\033[31m [KO]")
+    << "\033[0m" << std::endl;
+    std::cout << "\t" << label3 << " == " << label5 << " ? " << (label3 == label5)
+    << ((label3.get_label() == label5.get_label()) == (label3 == label5) ? "\033[32m [OK]" : "\033[31m [KO]")
+    << "\033[0m" << std::endl;
+
 
 
 	std::cout << "\033[33m" << "\n\t****** Weight tests ******\n" << "\033[0m" << std::endl;
@@ -70,6 +89,15 @@ int main()
     std::cout << "\t" << weight2 << " < " << weight << " = " << (weight2 < weight)
     << ((weight2.get_label() < weight.get_label()) == (weight2 < weight) ? "\033[32m [OK]" : "\033[31m [KO]")
     << "\033[0m" << std::endl;
+    /* test == */
+    Weight<int> weight1(15);
+    std::cout << "\t" << weight << " == " << weight1 << " ? " << (weight == weight1)
+    << ((weight.get_label() == weight1.get_label()) == (weight == weight1) ? "\033[32m [OK]" : "\033[31m [KO]")
+    << "\033[0m" << std::endl;
+    std::cout << "\t" << weight << " == " << weight2 << " ? " << (weight == weight2)
+    << ((weight.get_label() == weight2.get_label()) == (weight == weight2) ? "\033[32m [OK]" : "\033[31m [KO]")
+    << "\033[0m" << std::endl;
+
 
 	/* bool weights tests */
 	std::cout << "\n\033[4m" <<"bool weights:\n\n" << "\033[0m";
@@ -88,6 +116,14 @@ int main()
     << "\033[0m" << std::endl;
     std::cout << "\t" << weight4 << " < " << weight3 << " = " << (weight4 < weight3)
     << ((weight4.get_label() < weight3.get_label()) == (weight4 < weight3) ? "\033[32m [OK]" : "\033[31m [KO]")
+    << "\033[0m" << std::endl;
+    /* test == */
+    Weight<bool> weight5(true);
+    std::cout << "\t" << weight4 << " == " << weight5 << " ? " << (weight4 == weight5)
+    << ((weight4.get_label() == weight5.get_label()) == (weight4 == weight5) ? "\033[32m [OK]" : "\033[31m [KO]")
+    << "\033[0m" << std::endl;
+    std::cout << "\t" << weight3 << " == " << weight4 << " ? " << (weight3 == weight4)
+    << ((weight3.get_label() == weight4.get_label()) == (weight3 == weight4) ? "\033[32m [OK]" : "\033[31m [KO]")
     << "\033[0m" << std::endl;
 
 /*
