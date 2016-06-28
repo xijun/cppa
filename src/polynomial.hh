@@ -16,7 +16,7 @@ public:
     ~Polynomial() {}
 
     /* Monomial functions*/
-    const Container<Args...>& get_monomials() const override;
+    Container<Args...>& get_monomials() override;
 
     bool label_is_used(const Label<L>& label) const;
 
@@ -45,7 +45,7 @@ public :
 		Polynomial();
 		~Polynomial() {}
 
-		const std::vector<std::pair<Label<L>, Weight<W>>>& get_monomials() const override;
+		std::vector<std::pair<Label<L>, Weight<W>>>& get_monomials() override;
 
 		bool label_is_used(const Label<L>& label) const;
 
