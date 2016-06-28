@@ -48,7 +48,6 @@ int main()
 	std::cout << "\t" << weight3 << " + " << weight4 << " = " << bool_weight_test
 		<< (bool_weight_test.get_label() == weight3.get_label() + weight4.get_label() ? "\033[32m [OK]" : "\033[31m [KO]")
 		<< "\033[0m" << std::endl;
-/*
 //----------------------------------------------------------------------------------------
 
 	Label<std::string> l("x");
@@ -59,10 +58,30 @@ int main()
 	Weight<int> w6(3);
 	Weight<int> w7(4);
 
-	base_polynomial<std::string, int, boost::container::flat_map, Label<std::string>, Weight<int>>* poly
-	= new Polynomial<std::string, int, boost::container::flat_map, Label<std::string>, Weight<int>>();
+	auto poly
+	= new Polynomial<std::string, int, std::vector, std::pair<Label<std::string>, Weight<int>>>();
 	poly->add_monomial(l, w5);
 	poly->add_monomial(l2, w6);
 	poly->add_monomial(l3, w7);
-	std::cout << *poly << std::endl;*/
+	std::cout << *poly << std::endl;
+
+	auto p = new Polynomial<std::string, int, std::vector, std::pair<Label<std::string>, Weight<int>>>();
+	p->add_monomial(l, w5);
+	p->add_monomial(l2, w6);
+	p->add_monomial(l3, w7);
+	*poly = *poly + *p;
+	std::cout << *poly << std::endl;
+
+	auto p2 =
+	new Polynomial<std::string, int, boost::container::flat_map, Label<std::string>, Weight<int>>();
+	p2->add_monomial(l, w5);
+  p2->add_monomial(l2, w6);
+  p2->add_monomial(l3, w7);
+
+	auto p3 = new Polynomial<std::string, int, boost::container::flat_map, Label<std::string>, Weight<int>>();
+	p3->add_monomial(l, w5);
+  p3->add_monomial(l2, w6);
+  p3->add_monomial(l3, w7);
+	*p2 = *p2 + *p3;
+	std::cout << *p2 << std::endl;
 }

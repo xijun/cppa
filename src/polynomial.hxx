@@ -43,21 +43,12 @@ inline bool Polynomial<L, W, Container, Args...>::label_is_used(const Label<L>& 
                          [label](std::pair<Label<L>, Weight<W>>& monomial) {return monomial.first == label;});
     return it != monomials_.end();*/
 
-    auto it = monomials_.begin();
-    while (it != monomials_.end())
-    {
-        if (it->first == label)
-            return true;
-        if (!(it->first < label))
-            return false;
-				it++;
-    }
-    return false;
-
-    /*it = std::lower_bound(monomials_.begin(), monomials_.end(), label,
-        boost::bind(&std::pair<const Label<L>&, const Weight<W>& const>::first, _1)
-        < boost::bind(&std::pair<const Label<L>&, const Weight<W>& const>::first, _2));
-    return (it != monomials_.end() && it->)*/
+		auto it = monomials_.find(label);
+		return it != monomials_.end();
+    //auto it = std::lower_bound(monomials_.begin(), monomials_.end(), label,
+    //    boost::bind(std::pair<Label<L>&, Weight<W>&>::first, _1)
+    //   < boost::bind(std::pair<Label<L>&, Weight<W>&>::first, _2));
+    //return (it != monomials_.end() && it->)
 }
 
 template <typename L, typename W>
@@ -192,9 +183,8 @@ bool Polynomial<L, W, Container, Args...>
 ::add_monomial(const Label<L>& label, const Weight<W>& weight)
 {
 	auto pair = std::make_pair(label, weight);
-  //auto p = monomials_.insert(pair);
-  //return p.second;
-	return true;
+  auto p = monomials_.insert(pair);
+  return p.second;
 }
 
 template <typename L, typename W>
