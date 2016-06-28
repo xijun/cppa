@@ -4,6 +4,10 @@
 #include "label.hh"
 #include "weight.hh"
 
+/**
+ * Polynomial has a variadic template to be able to deal with generic cases
+ * (more details on README)
+ */
 template <typename L, typename W, template<class...> class Container, class... Args>
 class Polynomial : public base_polynomial<L, W, Container, Args...>
 {
@@ -39,6 +43,10 @@ private:
     Container<Args...> monomials_;
 };
 
+
+/**
+ *	template specialization for a vector of pair
+ */
 template <typename L, typename W>
 class Polynomial<L, W, std::vector, std::pair<Label<L>, Weight<W>>> :
 public base_polynomial<L, W, std::vector, std::pair<Label<L>, Weight<W>>>
