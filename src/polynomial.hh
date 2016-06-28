@@ -66,4 +66,9 @@ private:
 template<typename L, typename W, template<class...> class Container, class... Args>
 std::ostream& operator<<(std::ostream& os, const base_polynomial<L, W, Container, Args...>& polynomial);
 
+template<typename L, typename W, template<class...> class Container, class... Args>
+void add_for_mult(const Label<L>& label, const Weight<W>& weight, Container<Args ...>&);
+
+template <typename L, typename W, template<class...> class Container, class... Args>
+typename Container<Args ...>::iterator label_find(const Label<L>& label, const Container<Args ...>& cont);
 #include "polynomial.hxx"
