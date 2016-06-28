@@ -62,6 +62,9 @@ public :
 
 		void print(std::ostream& os) const override;
 
+		void add_for_mult(const Label<L>& label,
+                      const Weight<W>& weight,
+                      std::vector<std::pair<Label<L>, Weight<W>>>& mult);
 private:
 		std::vector<std::pair<Label<L>, Weight<W>>> monomials_;
 };

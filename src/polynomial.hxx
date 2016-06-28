@@ -4,6 +4,7 @@
 #include "boost/bind.hpp"
 #include <boost/bind.hpp>
 #include "polynomial.hh"
+#include "comparator.hh"
 
 template <typename L, typename W, template<class...> class Container, class... Args>
 Polynomial<L, W, Container, Args...>::Polynomial()
@@ -37,32 +38,25 @@ Polynomial<L, W, std::vector, std::pair<Label<L>, Weight<W>>>
 template <typename L, typename W, template<class...> class Container, class... Args>
 inline bool Polynomial<L, W, Container, Args...>::label_is_used(const Label<L>& label) const
 {
-    /* Search for *label* within the vector of pair */
-    //typename std::vector<std::pair<const Label<L>&, const Weight<W>&>const >::iterator it;
-    /*it = std::find_if(monomials_.begin(), monomials_.end(),
-                         [label](std::pair<Label<L>, Weight<W>>& monomial) {return monomial.first == label;});
-    return it != monomials_.end();*/
-
 		auto it = monomials_.find(label);
 		return it != monomials_.end();
-    //auto it = std::lower_bound(monomials_.begin(), monomials_.end(), label,
-    //    boost::bind(std::pair<Label<L>&, Weight<W>&>::first, _1)
-    //   < boost::bind(std::pair<Label<L>&, Weight<W>&>::first, _2));
-    //return (it != monomials_.end() && it->)
 }
 
 template <typename L, typename W>
 bool Polynomial<L, W, std::vector, std::pair<Label<L>, Weight<W>>>
 ::label_is_used(const Label<L>& label) const
 {
-	auto it = monomials_.begin();
-	while (it != monomials_.end())
+	//auto it = std::find_if(monomials_.begin(), monomials_.end(),
+  //                       [label](std::pair<Label<L>, Weight<W>>& monomial) {return monomial.first == label;});
+	//return it != monomials_.end();
+	  auto it = monomials_.begin();
+    while (it != monomials_.end())
     {
-        if (it->first == label)
-            return true;
-        if (!(it->first < label))
-            return false;
-        it++;
+	    if (it->first == label)
+				return true;
+			if (!(it->first < label))
+        return false;
+      it++;
     }
     return false;
 }
@@ -179,6 +173,26 @@ Polynomial<L, W, Container, Args...>
     return *this;
 }
 
+template <typename L, typename W>
+Polynomial<L, W, std::vector, std::pair<Label<L>, Weight<W>>>&
+Polynomial<L, W, std::vector, std::pair<Label<L>, Weight<W>>>
+::operator*(Polynomial<L, W, std::vector, std::pair<Label<L>, Weight<W>>>& polynomial)
+{
+	auto& arg1 = monomials_;
+	auto& arg2 = polynomial.get_monomials();
+	std::vector<std::pair<Label<L>, Weight<W>>> mult;
+	BOOST_FOREACH(auto& p, arg1)
+	{
+		BOOST_FOREACH(auto& p2, arg2)
+		{
+			add_for_mult(p.first + p2.first, p.second * p2.second, mult);
+		}
+	}
+	monomials_ = mult;
+	std::sort(monomials_.begin(), monomials_.end(), vector_sort<std::pair, Label<L>, Weight<W>>());
+	return *this;
+}
+
 template <typename L, typename W, template<class...> class Container, class... Args>
 bool Polynomial<L, W, Container, Args...>
 ::add_monomial(const Label<L>& label, const Weight<W>& weight)
@@ -215,6 +229,28 @@ void Polynomial<L, W, Container, Args...>
 	{
 		it->first = it->first + label;
 		it->second = it->second + weight;
+	}
+}
+
+template <typename L, typename W>
+void Polynomial<L, W, std::vector, std::pair<Label<L>, Weight<W>>>
+::add_for_mult(const Label<L>& label,
+               const Weight<W>& weight,
+               std::vector<std::pair<Label<L>, Weight<W>>>& mult)
+{
+	auto it = std::find_if(monomials_.begin(), monomials_.end(),
+           [label](std::pair<Label<L>, Weight<W>>& monomial) {return monomial.first == label;});
+	if (it != mult.end())
+	{
+		auto pair = std::make_pair(label, weight);
+		mult.push_back(pair);
+	}
+	else
+	{
+		it->first = it->first + label;
+		it->second = it->second + weight;
+		if (!it->second.get_label())
+			mult.erase(it);
 	}
 }
 

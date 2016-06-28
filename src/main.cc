@@ -86,7 +86,7 @@ int main()
 	Weight<int> w5(2);
 	Weight<int> w6(3);
 	Weight<int> w7(4);
-
+	Weight<std::string> w8("toto");
 	auto poly
 	= new Polynomial<std::string, int, std::vector, std::pair<Label<std::string>, Weight<int>>>();
 	poly->add_monomial(l, w5);
@@ -101,6 +101,9 @@ int main()
 	*poly = *poly + *p;
 	std::cout << *poly << std::endl;
 
+	*poly = *poly * *p;
+	std::cout << *poly << std::endl;
+
 	auto p2 =
 	new Polynomial<std::string, int,
 								boost::container::flat_map,
@@ -109,7 +112,6 @@ int main()
 	p2->add_monomial(l, w5);
   p2->add_monomial(l2, w6);
   p2->add_monomial(l3, w7);
-	p2->add_monomial(l4, w7);
 	auto p3 = new Polynomial<std::string, int,
 													boost::container::flat_map,
 													Label<std::string>,
