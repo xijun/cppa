@@ -165,16 +165,17 @@ inline  Polynomial<L, W, Container, Args...>&
 Polynomial<L, W, Container, Args...>
 ::operator*(Polynomial<L, W, Container, Args...>& polynomial)
 {
-		auto& arg1 = this->get_monomials();
+		auto& arg1 = monomials_;
 		auto& arg2 = polynomial.get_monomials();
 		Container<Args ...> mult;
 		BOOST_FOREACH(auto& p, arg1)
 		{
 			BOOST_FOREACH(auto& p2, arg2)
 			{
-				auto res = std::make_pair(p.first + p2.first, p.second * p2.second);
+				add_for_mult(p.first + p2.first, p.second * p2.second, mult);
 			}
 		}
+		monomials_ = mult;
     return *this;
 }
 
@@ -201,9 +202,10 @@ bool Polynomial<L, W, std::vector, std::pair<Label<L>, Weight<W>>>
 }
 
 template <typename L, typename W, template<class...> class Container, class... Args>
-void add_for_mult(const Label<L>& label, const Weight<W>& weight, Container<Args ...>& cont)
+void Polynomial<L, W, Container, Args...>
+::add_for_mult(const Label<L>& label, const Weight<W>& weight, Container<Args ...>& cont)
 {
-	auto it = label_find(label, cont);
+	auto it = label_find(label, monomials_);
 	if (it != cont.end())
 	{
 		auto pair = std::make_pair(label, weight);
@@ -211,17 +213,15 @@ void add_for_mult(const Label<L>& label, const Weight<W>& weight, Container<Args
 	}
 	else
 	{
-		*it.first = *it.first + label;
-		*it.second = *it.second + weight;
+		it->first = it->first + label;
+		it->second = it->second + weight;
 	}
 }
 
-template <typename L, typename W, template<class...> class Container, class... Args>
+template <typename L, template<class...> class Container, class... Args>
 typename Container<Args ...>::iterator
-label_find(const Label<L>& label, const Container<Args ...>& cont)
+label_find(const Label<L>& label, Container<Args ...>& cont)
 {
-    auto it = cont.begin();
-    while (it != cont.end())
-        it++;
+    typename Container<Args ...>::iterator it = cont.find(label);
     return it;
 }

@@ -88,4 +88,7 @@ int main()
   p3->add_monomial(l3, w7);
 	*p2 = *p2 + *p3;
 	std::cout << *p2 << std::endl;
+
+	*p2 = *p2 * *p3;
+	std::cout << *p2 << std::endl;
 }
