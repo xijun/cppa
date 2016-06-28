@@ -6,10 +6,10 @@
 template <typename T>
 Label<T>::Label()
 {
-  if (std::is_same<T, std::string>::value)
-	  label_ = "\\e";
-  else
-    label_ = 0;
+    if (std::is_same<T, std::string>::value)
+        label_ = "\\e";
+    else
+        label_ = 0;
 }
 
 template <typename T>
@@ -34,7 +34,7 @@ inline
 const Label<T> Label<T>::operator+(const Label<T>& label)
 {
     if (std::is_same<T, char>::value)
-        throw std::logic_error("cannot use operator + with a label char");
+        throw std::logic_error("\033[31mcannot use operator \'+\' with a label char\033[0m");
 	const Label<T> output(get_label() + label.get_label());
 	return output;
 }

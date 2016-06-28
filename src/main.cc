@@ -55,22 +55,40 @@ int main()
 	/* int weights tests */
 	std::cout << "\n\033[4m" <<"int weights:\n\n" << "\033[0m";
 	Weight<int> weight(15);
+    /* test << */
 	std::cout << "\tprint test, weight = " << weight << std::endl;
 	Weight<int> weight2(12);
 	Weight<int> int_weight_test = weight + weight2;
+    /* test + */
 	std::cout << "\t" << weight << " + " << weight2 << " = " << int_weight_test
 		<< (int_weight_test.get_label() == weight.get_label() + weight2.get_label() ? "\033[32m [OK]" : "\033[31m [KO]")
 		<< "\033[0m" << std::endl;
+    /* test < */
+    std::cout << "\t" << weight << " < " << weight2 << " = " << (weight < weight2)
+    << ((weight.get_label() < weight2.get_label()) == (weight < weight2) ? "\033[32m [OK]" : "\033[31m [KO]")
+    << "\033[0m" << std::endl;
+    std::cout << "\t" << weight2 << " < " << weight << " = " << (weight2 < weight)
+    << ((weight2.get_label() < weight.get_label()) == (weight2 < weight) ? "\033[32m [OK]" : "\033[31m [KO]")
+    << "\033[0m" << std::endl;
 
 	/* bool weights tests */
-	std::cout << "\n\033[4m" <<"int labels:\n\n" << "\033[0m";
+	std::cout << "\n\033[4m" <<"bool weights:\n\n" << "\033[0m";
 	Weight<bool> weight3(false);
+    /* test << */
 	std::cout << "\tprint test, weight = " << weight3 << std::endl;
 	Weight<bool> weight4(true);
 	Weight<bool> bool_weight_test = weight3 + weight4;
+    /* test + */
 	std::cout << "\t" << weight3 << " + " << weight4 << " = " << bool_weight_test
 		<< (bool_weight_test.get_label() == weight3.get_label() + weight4.get_label() ? "\033[32m [OK]" : "\033[31m [KO]")
 		<< "\033[0m" << std::endl;
+    /* test < */
+    std::cout << "\t" << weight3 << " < " << weight4 << " = " << (weight3 < weight4)
+    << ((weight3.get_label() < weight4.get_label()) == (weight3 < weight4) ? "\033[32m [OK]" : "\033[31m [KO]")
+    << "\033[0m" << std::endl;
+    std::cout << "\t" << weight4 << " < " << weight3 << " = " << (weight4 < weight3)
+    << ((weight4.get_label() < weight3.get_label()) == (weight4 < weight3) ? "\033[32m [OK]" : "\033[31m [KO]")
+    << "\033[0m" << std::endl;
 
 /*
  *
