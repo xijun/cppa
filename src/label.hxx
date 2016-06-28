@@ -1,15 +1,15 @@
-#include "label.hh"
+#include <typeinfo>
 #include <stdexcept>
 #include <type_traits>
+#include "label.hh"
 
 template <typename T>
 Label<T>::Label()
 {
-  bool is_int = std::is_same<T, int>::value;
-  if (is_int)
-    label_ = 0;
+  if (std::is_same<T, std::string>::value)
+	  label_ = "\\e";
   else
-    label_ = "\\e";
+    label_ = 0;
 }
 
 template <typename T>
@@ -56,7 +56,16 @@ template <typename T>
 inline
 bool Label<T>::operator<(const Label<T>& label) const
 {
-	return this->label_ < label.label_;
+	return label_ < label.get_label();
+}
+
+template <>
+inline
+bool Label<std::string>::operator<(const Label<std::string>& label) const
+{
+	if (get_label().size() == label.get_label().size())
+		return get_label() < label.get_label();
+	return get_label().size() < label.get_label().size();
 }
 
 template <typename T>
