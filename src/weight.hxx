@@ -20,30 +20,34 @@ Weight<T>::~Weight()
 
 template <typename T>
 inline
-T Weight<T>::operator+(const Weight<T>& weight) const
+Weight<T>& Weight<T>::operator+(const Weight<T>& weight)
 {
-	return this->label_ + weight.label_;
+	this->label_ += weight.label_;
+	return *this;
 }
 
 template <>
 inline
-bool Weight<bool>::operator+(const Weight<bool>& weight) const
+Weight<bool>& Weight<bool>::operator+(const Weight<bool>& weight)
 {
-	return this->label_ || weight.label_;
+	this->label_ = this->label_ || weight.label_;
+	return *this;
 }
 
 template <typename T>
 inline
-T Weight<T>::operator*(const Weight<T>& weight) const
+Weight<T>& Weight<T>::operator*(const Weight<T>& weight)
 {
-	return this->label_ * weight.label_;
+	this->label_ *= weight.label_;
+	return *this;
 }
 
 template <>
 inline
-bool Weight<bool>::operator*(const Weight<bool>& weight) const
+Weight<bool>& Weight<bool>::operator*(const Weight<bool>& weight)
 {
-	return this->label_ && weight.label_;
+	this->label_ = this->label_ && weight.label_;
+	return *this;
 }
 
 template <typename T>
